@@ -1,0 +1,22 @@
+def knaspack(A, k):
+    n = len(A)
+    t = [[0 for col in range(2)] for row in range(n)]
+    for i in range(n):
+        t[i][0] = (A[i][0]) / (A[i][1])
+        t[i][1] = (A[i][1])
+    #t[][0] to wartosc za jedna jednostke, a t[][1] to ilosc jej
+    t.sort()
+    #sortujemy po wartosci za jednostke malejaco, dlatego w petli lece od konca
+    cost=0.0
+    currW=0.0
+    for i in range(n-1,-1,-1):
+        if( currW + t[i][1] <= k):
+            currW+=t[i][1]
+            cost+=t[i][0]*t[i][1]
+        else:
+            cost+=(k-currW)*t[i][0]
+            return cost
+#zlozonosc zalezy od zlozonosci t.sort(), bo poza tym zlozonosc jest liniowa O(n)
+#najprawdopodobniej to n*logn, bo python korzysta z ulepszonego mergesorta
+#można zrobić couting sorta i mieć zlozonosc O(n), ale couting ma dużą stałą i potrzebuje dużo pamięci, więc nie warto
+print( knaspack( [ (1,1), (10,2), (6,3) ], 3 ))
