@@ -1,0 +1,22 @@
+A = [(0, 2), (0, 1), (3, 5), (2, 5), (2, 9), (1, 7), (2, 4), (6, 8), (5, 10)]
+print(A)
+
+def tasks(A):
+    A.sort()
+    #tablica posortowana rosnąco po 2 wartościach, to zapewnia ta funkcja
+    m = len(A)
+    k = m - 1
+    t = [()]
+    t[0] = A[m - 1]
+    #ide od konca, bo mam posortowane z priorytem 1 wartosci
+    for m in range(m - 1, -1, -1):
+        if A[k][0] >= A[m][1]:
+            t.insert(0, A[m])
+            k = m
+    return t
+#zlozonosc zalezy od zlozonosci t.sort(), bo poza tym zlozonosc jest liniowa O(n)
+#najprawdopodobniej to n*logn, bo python korzysta z ulepszonego mergesorta
+#można zrobić couting sorta i mieć zlozonosc O(n), ale couting ma dużą stałą i potrzebuje dużo pamięci, więc nie warto
+
+print(tasks(A))
+print(tasks([(0, 10), (10, 20), (5, 15)]))
